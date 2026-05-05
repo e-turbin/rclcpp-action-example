@@ -17,6 +17,7 @@ class ActionClient : public rclcpp::Node
 		
 		rclcpp::TimerBase::SharedPtr timer_;
 		rclcpp_action::Client<SequentialSum>::SharedPtr client_;
+		rclcpp_action::Client<SequentialSum>::SendGoalOptions options;
 		
 	public:
 		bool done = false;
@@ -77,8 +78,6 @@ class ActionClient : public rclcpp::Node
 				this->get_logger(),
 				"Sending goal"
 			);
-
-			rclcpp_action::Client<SequentialSum>::SendGoalOptions options;
 
 			options.goal_response_callback = [this](const auto& goal_handle) {
 				this->on_goal_response(goal_handle);
